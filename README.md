@@ -1,4 +1,4 @@
-# 🎂 ***Birthday Wish Album***
+#  ***Birthday Wish Album 🎂***
 <div align="center">
        
 ### 💖 ***Create. Personalize. Celebrate.***
