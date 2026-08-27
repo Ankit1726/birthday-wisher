@@ -433,23 +433,23 @@ If you like this project or find it useful for learning:
 
 <div align="center">
 
-### 🎂 **Birthday Wish Album**
+### ***🎂 Birthday Wish Album***
 
-### **A little code. A little creativity. A lot of love. ❤️**
+### ***A little code. A little creativity. A lot of love. ❤️***
 
-**Create a memory. Share a smile. Celebrate someone special.**
+***Create a memory. Share a smile. Celebrate someone special.***
 
 <br>
 
 ### 👨‍💻 ***ANKIT GUPTA***
 
-**AI Engineer • Python Developer • AIML Enthusiast**
+***AI Engineer • Python Developer • AIML Enthusiast***
 
-**Building intelligent and meaningful applications**
+***Building intelligent and meaningful applications***
 
 <br>
 
-**Made with ❤️ using Python, FastAPI, MongoDB & JavaScript**
+***Made with ❤️ using Python, FastAPI, MongoDB & JavaScript***
 
 </div>
 
