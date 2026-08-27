@@ -1,142 +1,482 @@
-# 🎂 Birthday Wish Album
+# 🎂 ***Birthday Wish Album***
 
-A private, animated "birthday wish album" you build for someone special: her photo in
-a locket that opens on tap, a wish message, a song playlist, and cake/confetti/balloon
-animations — in a dark theme with a pink accent that you pick per album.
+### 💖 ***Create. Personalize. Celebrate.***
 
-Built exactly to the blueprint: **Login & Authentication** page → **Birthday Wish +
-Photo + Song Album Card** page → shareable public album with animations, upload to
-MongoDB cloud DB, and a footer credit ("By ♥ {creator} — special for {her name}").
+***A private animated birthday album built with FastAPI, MongoDB Atlas, HTML, CSS & JavaScript***
 
-## Stack
+**Photo • Birthday Wish • Music • Locket Animation • Cake • Confetti • Balloons • Shareable Album**
 
-| Layer     | Tech |
-|-----------|------|
-| Frontend  | Plain HTML / CSS / JS (no build step) — dark theme, pink variants, CSS+canvas animations |
-| Backend   | FastAPI (Python), JWT auth, async Mongo driver (Motor) |
-| Database  | MongoDB Atlas (cloud) — stores users, albums, and uploaded photos/songs as documents |
-| Deploy    | Docker (single image serves both API and frontend) + Render |
+<p align="center">
 
-## Project structure
+<img src="https://img.shields.io/badge/Python-3.11-blue?style=for-the-badge&logo=python"/>
+<img src="https://img.shields.io/badge/FastAPI-Backend-009688?style=for-the-badge&logo=fastapi"/>
+<img src="https://img.shields.io/badge/MongoDB-Atlas-green?style=for-the-badge&logo=mongodb"/>
+<img src="https://img.shields.io/badge/JavaScript-Frontend-yellow?style=for-the-badge&logo=javascript"/>
+<img src="https://img.shields.io/badge/Docker-Containerized-blue?style=for-the-badge&logo=docker"/>
+<img src="https://img.shields.io/badge/Render-Deployed-purple?style=for-the-badge"/>
 
-```
-.
-├── Dockerfile
-├── docker-compose.yml
-├── app.py                  ← FastAPI app, mounts frontend, CORS, lifespan
-├── backend/
-│   ├── config.py            ← reads environment variables
-│   ├── database/            ← Mongo connection and Pydantic models
-│   ├── auth/                ← JWT authentication
-│   ├── keepalive.py         ← optional self-ping job
-│   └── routes/              ← auth, album, and health endpoints
-│           ├── auth.py     ← /api/auth/register, /api/auth/login
-│           ├── album.py    ← album CRUD + photo/song upload + public view
-│           └── health.py   ← /health
-└── frontend/
-    ├── index.html          ← Page 1: Login & Authentication (blueprint page 1)
-    ├── dashboard.html      ← Your albums, "Create New Album" button
-    ├── create.html         ← Page 2: photo + wish + theme + songs (blueprint page 2)
-    ├── album.html          ← Public animated album (locket, cake, confetti, player)
-    ├── css/style.css       ← dark theme, 4 pink variants, all animations
-    └── js/                 ← api.js, auth.js, create.js, album.js, hearts.js, confetti.js
-```
+</p>
 
-## 1. Set up MongoDB Atlas (cloud DB)
+<p align="center">
 
-1. Create a free cluster at https://www.mongodb.com/cloud/atlas.
-2. Under **Database Access**, create a database user + password.
-3. Under **Network Access**, allow access from anywhere (`0.0.0.0/0`) so Render can connect.
-4. Copy the connection string — it looks like
-   `mongodb+srv://user:password@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority`.
+<a href="https://birthday-wisher-eokf.onrender.com" target="_blank">
+<img src="https://img.shields.io/badge/🚀%20Live%20Demo-Visit%20Now-success?style=for-the-badge">
+</a>
 
-## 2. Configure secrets (.env)
+</p>
 
-```bash
-cp backend/.env.example backend/.env
-```
+<p align="center">
 
-Then edit `.env` and fill in real values for:
-- `MONGO_URI` — the Atlas connection string from step 1
-- `JWT_SECRET` — any long random string (used to sign login sessions)
-- `SELF_URL` — leave blank for now; fill in **after** your first Render deploy (step 5)
+***Made with ❤️ by Ankit Gupta***
 
-`.env` is already excluded from Docker builds via `.dockerignore` and should
-never be committed to git — it holds every secret the app needs.
+</p>
 
-## 3. Run it locally
+</div>
 
-```bash
-pip install -r requirements.txt   # use a venv on local development
-uvicorn app:app --reload --port 8000
-```
+---
 
-Open http://localhost:8000 — the FastAPI app serves the login page and all static assets.
-Create an account with a username → you land on the dashboard → "Create New Album" → fill in
-the recipient, custom birthday date, photo, wish, theme, and songs → Save → you get a shareable link like
-`/album?slug=kanchan-98f2af`.
+### ***🎂 About The Project***
 
-## 4. Run it with Docker
+**Birthday Wish Album** is a private and personalized web application designed to create beautiful digital birthday experiences for someone special.
 
-```bash
-docker build -t birthday-album .
-docker run -p 8000:8000 --env-file .env birthday-album
+Instead of sending a normal birthday message, the application lets you create an interactive birthday album containing:
+
+* 📸 Personal photo
+* 💌 Custom birthday wish
+* 🎵 Personal songs
+* 💖 Animated heart-shaped locket
+* 🎂 Birthday cake interaction
+* 🕯️ Candle-blowing animation
+* 🎈 Floating balloons
+* 🎉 Confetti effects
+* ✨ Sparkles and floating hearts
+* 🎨 Multiple pink-based themes
+* 🔗 Shareable public album link
+
+The application provides a complete flow:
+
+```text
+Register / Login
+       ↓
+Personal Dashboard
+       ↓
+Create Birthday Album
+       ↓
+Add Photo + Wish + Songs
+       ↓
+Choose Theme & Animations
+       ↓
+Save Album
+       ↓
+Generate Shareable Link
+       ↓
+Interactive Birthday Experience ❤️
 ```
 
-or with docker-compose:
+---
 
-```bash
-docker-compose up --build
+# 🚀 Live Demo
+
+<p align="center">
+
+<a href="https://birthday-wisher-eokf.onrender.com" target="_blank">
+
+<img src="https://img.shields.io/badge/🚀%20OPEN%20LIVE%20APPLICATION-success?style=for-the-badge&logo=render"/>
+
+</a>
+
+</p>
+
+🌐 ***Live Application👉 [Birthday Wisher](https://birthday-wisher-eokf.onrender.com)***
+
+---
+
+### 📸 Project Showcase
+
+## 🏠 Login & Authentication
+
+The first screen allows the creator to securely register and log in before accessing their birthday albums.
+
+<p align="center">
+<img src="./preview/login.png" width="90%" alt="Login Page"/>
+<img src="./preview/register.png" width="90%" alt="Login Page"/>
+</p>
+
+---
+
+### ***🎨 Create Birthday Album***
+
+The creator can customize every important part of the birthday experience.
+
+* Recipient name
+* Birthday date
+* Birthday message
+* Personal photo
+* Songs
+* Theme
+* Animation preferences
+
+
+---
+
+## 🔐 Secure Private Album Creation
+
+Each creator has their own authenticated account.
+
+Only the album owner can:
+
+* Create albums
+* Edit albums
+* Delete albums
+* Upload media
+* Manage album settings
+
+The final album can then be shared using a public album URL.
+
+---
+
+## ✨ Key Features
+
+### ***🔐 Authentication***
+
+* User registration
+* User login
+* JWT-based authentication
+* Password hashing
+* 7-day session expiry
+* Protected album management APIs
+* Owner-based authorization
+
+---
+
+### ***🎂 Personalized Birthday Album***
+
+Each album can contain:
+
+```text
+Recipient Name
+       +
+Birthday Date
+       +
+Custom Wish
+       +
+Personal Photo
+       +
+Songs
+       +
+Theme
+       +
+Animations
 ```
 
-The image has a built-in `HEALTHCHECK` that hits `/health` every 30s.
+This makes every album unique.
 
-## 5. Deploy to Render
+---
 
-1. Push this repo to GitHub.
-2. On Render: **New → Web Service** → connect the repo → environment: **Docker**.
-3. Render auto-detects the root `Dockerfile`. Leave build/start commands blank.
-4. Add `MONGO_URI`, `MONGO_DB_NAME`, and `JWT_SECRET` under **Environment** (with your
-  real values). Optionally add `ALLOWED_ORIGINS`, `SELF_URL`, and
-  `KEEPALIVE_ENABLED` — Render's environment tab is where secrets actually live in
-   production, not a committed `.env` file.
-5. Deploy. Once it's live, copy the public URL Render gives you
-   (e.g. `https://birthday-album.onrender.com`).
-6. Go back to Environment, set `SELF_URL` to that exact URL, and redeploy once more.
+## 💖 Animated Heart Locket
 
-## 6. Keep the Render service warm
+The signature interaction of the project is a heart-shaped locket.
 
-Render's free tier can spin a service down after **15 minutes** with no inbound traffic.
-The in-process keep-alive is only useful while the process is already running, so it
-cannot guarantee that a sleeping free service stays awake. For periodic traffic, use an
-external monitor such as UptimeRobot or Better Uptime:
+```text
+          💖
+       ┌───────┐
+       │       │
+       │ PHOTO │
+       │       │
+       └───────┘
+          ↓
+       TAP / CLICK
+          ↓
+     💖 LOCKET OPENS
+          ↓
+       📸 PHOTO
+```
 
-1. Create an HTTP monitor for `https://YOUR-APP.onrender.com/health`.
-2. Set the interval to **5 minutes** or the shortest interval available on your plan.
-3. Keep `KEEPALIVE_ENABLED=false` on Render; the external monitor is the real wake-up request.
+The locket opens when the user interacts with it and reveals the recipient's photo.
 
-The `/health` endpoint returns HTTP 200 while the app and database are available. A paid
-Render instance is the only way to get a platform-level no-sleep guarantee.
+---
 
-## Design notes
+## 🎉 Celebration Animations
 
-- **Theme variants**: `rose`, `blush`, `magenta`, `lavender` — pick one per album so
-  each girl's page can feel like it was made just for her (`data-theme` attribute on
-  `<body>`, driving CSS custom properties).
-- **Signature animation**: a heart-shaped locket that flips open on tap to reveal her
-  photo, plus a candle that blows out on click, confetti bursts, floating hearts,
-  sparkles and balloons — all toggleable per album from the "Animations" chips on the
-  create page, driven by plain CSS keyframes and a small canvas confetti engine (no
-  external animation library).
-- **Songs**: upload an audio file or use **Fetch & add audio** with a direct public
-  MP3/WAV/OGG/M4A/AAC/FLAC URL. The backend stores fetched audio in MongoDB and the
-  album plays it from its own `/api/media/...` URL. Spotify/YouTube page URLs are not
-  audio files and are rejected instead of opening video pages.
+The album supports multiple animations:
 
-## Security notes
+* 🎈 Floating balloons
+* 💖 Floating hearts
+* 🎊 Confetti
+* ✨ Sparkles
+* 🎂 Birthday cake
+* 🕯️ Candle interaction
+* 💫 Locket animation
 
-- Login uses the username and password. Each album has its own customizable birthday date.
-- Sessions are signed JWTs (`JWT_SECRET`) with a 7-day expiry by default.
-- Only an album's owner can edit or delete it (`PATCH`/`DELETE` check `owner_id`).
-- All secrets live in `.env` locally and in Render's Environment tab in
-  production — nothing sensitive is hard-coded or committed.
+Animations can be enabled or disabled from the album creation screen.
+
+---
+
+# 🎨 Theme Variants
+
+Each album can have its own visual theme.
+
+| Theme       | Description           |
+| ----------- | --------------------- |
+| 🌹 Rose     | Romantic pink/red     |
+| 🌸 Blush    | Soft and elegant      |
+| 💗 Magenta  | Vibrant pink          |
+| 💜 Lavender | Purple-pink aesthetic |
+
+Themes are controlled using CSS custom properties and the HTML `data-theme` attribute.
+
+Example:
+
+```html
+<body data-theme="rose">
+```
+
+---
+
+# 🎵 Music & Songs
+
+The album supports personalized birthday music.
+
+Users can:
+
+### Upload Audio
+
+Supported formats include:
+
+```text
+MP3
+WAV
+OGG
+M4A
+AAC
+FLAC
+```
+
+### Fetch Public Audio
+
+The creator can provide a direct public audio URL.
+
+```text
+Public MP3/WAV/OGG/M4A/AAC/FLAC URL
+                  ↓
+             Backend Fetch
+                  ↓
+          Store in MongoDB
+                  ↓
+          /api/media/{id}
+                  ↓
+             Album Player
+```
+
+Spotify and YouTube page URLs are intentionally rejected because they are not direct audio files.
+
+---
+
+# 🧠 Application Architecture
+
+```text
+                       ┌──────────────────────┐
+                       │       Browser        │
+                       │ HTML + CSS + JS      │
+                       └──────────┬───────────┘
+                                  │
+                                  │ HTTP / REST API
+                                  ▼
+                       ┌──────────────────────┐
+                       │       FastAPI        │
+                       │      Backend         │
+                       └──────────┬───────────┘
+                                  │
+              ┌───────────────────┼───────────────────┐
+              │                   │                   │
+              ▼                   ▼                   ▼
+       ┌────────────┐      ┌────────────┐      ┌────────────┐
+       │    JWT     │      │   Album    │      │   Media    │
+       │    Auth    │      │   CRUD     │      │  Storage   │
+       └────────────┘      └────────────┘      └────────────┘
+                                  │
+                                  ▼
+                       ┌──────────────────────┐
+                       │    MongoDB Atlas     │
+                       │                      │
+                       │ Users                │
+                       │ Albums               │
+                       │ Photos               │
+                       │ Songs                │
+                       └──────────────────────┘
+```
+
+---
+
+# 🏗️ Project Flow
+
+```text
+                    ┌───────────────┐
+                    │     User      │
+                    └───────┬───────┘
+                            │
+                            ▼
+                    ┌───────────────┐
+                    │ Register/Login│
+                    └───────┬───────┘
+                            │
+                            ▼
+                    ┌───────────────┐
+                    │   Dashboard   │
+                    └───────┬───────┘
+                            │
+                     Create Album
+                            │
+                            ▼
+              ┌─────────────────────────┐
+              │ Album Configuration     │
+              │                         │
+              │ Name                    │
+              │ Birthday                │
+              │ Wish                    │
+              │ Photo                   │
+              │ Songs                   │
+              │ Theme                   │
+              │ Animations              │
+              └────────────┬────────────┘
+                           │
+                           ▼
+                  ┌─────────────────┐
+                  │   MongoDB Atlas │
+                  └────────┬────────┘
+                           │
+                           ▼
+                  ┌─────────────────┐
+                  │ Public Album URL│
+                  └────────┬────────┘
+                           │
+                           ▼
+                  🎂 Birthday Experience
+```
+
+---
+
+# 🛠️ Tech Stack
+
+### Frontend
+
+* HTML5
+* CSS3
+* Vanilla JavaScript
+* CSS Keyframe Animations
+* HTML Canvas
+* Fetch API
+
+### Backend
+
+* Python 3.11
+* FastAPI
+* Pydantic
+* JWT Authentication
+* Async API architecture
+
+### Database
+
+* MongoDB Atlas
+* Async MongoDB driver
+* Document-based storage
+
+### Deployment
+
+* Docker
+* Docker Compose
+* Render
+---
+
+
+
+
+
+
+
+
+
+# ❤️ Example User Journey
+
+```text
+👤 Creator
+   │
+   ├── Register
+   │
+   ├── Login
+   │
+   └── Dashboard
+          │
+          └── Create New Album
+                    │
+                    ├── 👩 Recipient Name
+                    ├── 📅 Birthday Date
+                    ├── 💌 Birthday Wish
+                    ├── 📸 Photo
+                    ├── 🎵 Songs
+                    ├── 🎨 Theme
+                    └── ✨ Animations
+                              │
+                              ▼
+                         💾 Save Album
+                              │
+                              ▼
+                     🔗 Shareable Link
+                              │
+                              ▼
+                     🎂 Birthday Album
+                              │
+               ┌──────────────┼──────────────┐
+               ▼              ▼              ▼
+             💖             🎵             🎉
+           Locket          Music          Confetti
+               │
+               ▼
+             🎂
+        Birthday Celebration
+```
+
+---
+
+### ***🌟 Why I Built This***
+
+This project combines **web development, backend engineering, database management, authentication, media handling, animations and cloud deployment** into one complete application.
+
+The goal was not simply to create another CRUD application.
+
+The goal was to build something that feels **personal, interactive and memorable** while still demonstrating practical software engineering skills.
+---
+
+### ***⭐ Support***
+
+If you like this project or find it useful for learning:
+
+⭐ Star the repository
+🍴 Fork the project
+🐛 Report issues
+💡 Suggest improvements
+
+---
+
+<div align="center">
+
+### 🎂 **Birthday Wish Album**
+
+### **A little code. A little creativity. A lot of love. ❤️**
+
+**Create a memory. Share a smile. Celebrate someone special.**
+
+<br>
+
+### 👨‍💻 ***ANKIT GUPTA***
+
+**AI Engineer • Python Developer • AIML Enthusiast**
+
+**Building intelligent and meaningful applications**
+
+<br>
+
+**Made with ❤️ using Python, FastAPI, MongoDB & JavaScript**
+
+</div>
+
