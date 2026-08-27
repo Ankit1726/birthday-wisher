@@ -25,7 +25,7 @@ async function init() {
     return showNotFound();
   }
   render(albumData);
-  maybeShowOwnerActions();
+  await maybeShowOwnerActions();
   startAmbientBalloons();
   window.setTimeout(() => document.getElementById("locket").click(), 700);
   window.setTimeout(startSong, 900);
@@ -124,17 +124,72 @@ function renderCalendar() {
   }
 }
 
+// ---------- owner-only actions (edit/delete) ----------
+// Only the authenticated user who created this album can see/use the
+// edit and delete controls. Everyone else (logged out, or logged in but
+// not the creator) never sees them. This is UI-level gating only â€”
+// the backend MUST also verify ownership on the edit/delete API calls,
+// otherwise someone could bypass the UI and hit the API directly.
 async function maybeShowOwnerActions() {
-  if (!Auth.isLoggedIn()) return;
+  const ownerActions = document.getElementById("owner-actions");
+  if (!ownerActions) return;
+
+  // Fail-safe default: hidden for everyone until we confirm ownership.
+  ownerActions.style.display = "none";
+
+  const editLink = document.getElementById("edit-link");
+  const deleteBtn = document.getElementById("delete-btn");
+  if (editLink) editLink.classList.add("hidden");
+  if (deleteBtn) {
+    deleteBtn.classList.add("hidden");
+    deleteBtn.disabled = true;
+  }
+
+  if (!Auth.isLoggedIn()) return; // not logged in -> no edit/delete
+
   try {
     const mine = await apiFetch("/api/albums/mine");
-    if (mine.some((m) => m.slug === slug)) {
-      document.getElementById("owner-actions").style.display = "flex";
-      document.getElementById("edit-link").href =
-        "/create?slug=" + encodeURIComponent(slug);
+    const isOwner = mine.some((m) => m.slug === slug);
+    if (!isOwner) return; // logged in, but not the creator -> stays hidden
+
+    ownerActions.style.display = "flex";
+
+    if (editLink) {
+      editLink.classList.remove("hidden");
+      editLink.href = "/create?slug=" + encodeURIComponent(slug);
+    }
+
+    if (deleteBtn) {
+      deleteBtn.classList.remove("hidden");
+      deleteBtn.disabled = false;
+      deleteBtn.addEventListener("click", handleDeleteAlbum);
     }
   } catch (_) {
-    /* ignore */
+    // Any error (auth expired, network issue, etc.) -> stay hidden, fail safe.
+    ownerActions.style.display = "none";
+  }
+}
+
+async function handleDeleteAlbum() {
+  if (!Auth.isLoggedIn()) return; // extra guard
+
+  const confirmed = window.confirm(
+    "Are you sure you want to delete this album? This action can't be undone.",
+  );
+  if (!confirmed) return;
+
+  const deleteBtn = document.getElementById("delete-btn");
+  if (deleteBtn) deleteBtn.disabled = true;
+
+  try {
+    await apiFetch("/api/albums/" + slug, { method: "DELETE" });
+    window.location.href = "/";
+  } catch (err) {
+    if (deleteBtn) deleteBtn.disabled = false;
+    alert(
+      "Could not delete this album. " +
+        (err && err.message ? err.message : "Please try again."),
+    );
   }
 }
 
@@ -321,11 +376,6 @@ function stopYoutube() {
   }
 }
 
-// ---------- small inline box for "external link" songs ----------
-// Same idea as the little bordered preview box on the create page: instead
-// of reusing the big YouTube-sized frame, external links get their own
-// compact, rounded, fixed-height box so they clearly read as "a small
-// player embedded right here" rather than a full video screen.
 function getExternalSongFrame() {
   let wrap = document.getElementById("external-song-frame");
   if (!wrap) {
