@@ -247,9 +247,6 @@ document
         kind: res.kind || detected.kind,
       });
     } catch (err) {
-      // Backend fetch didn't work - don't block the user. Save the link
-      // directly using client-side detection so "add url song" always
-      // succeeds, and it will still preview/play on the album page.
       songs.push({ title, singer, url: detected.url, kind: detected.kind });
     }
 

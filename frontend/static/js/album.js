@@ -7,10 +7,6 @@ let currentTrack = -1;
 let completedCycles = 0;
 let ambientBalloonTimer = null;
 let floodBalloonCount = 0;
-// This is only a performance safety valve, not a "stop the feature" limit.
-// The spawner below never clears its interval, so balloons keep flowing
-// non-stop for as long as the page is open - this cap just avoids piling up
-// more DOM nodes than any device can smoothly animate at once.
 const MAX_FLOOD_BALLOONS = 140;
 const audioEl = document.getElementById("audio-el");
 const ytFrame = document.getElementById("yt-frame");
@@ -233,13 +229,8 @@ function launchBalloons(n, stagger = 100) {
   }
 }
 
-// ---------- continuous full-screen balloon flood (large, dense, non-stop) ----------
-// Balloons launch from the footer/bottom of the screen and float all the way
-// past the top, spread across three zones (left / middle / right) so every
-// part of the screen keeps getting new balloons, on every screen size.
+
 function responsiveSizeFactor() {
-  // Scales balloon size down smoothly on narrow screens so they never
-  // overwhelm a phone viewport, while staying "large" on desktop.
   return Math.max(0.55, Math.min(1, window.innerWidth / 700));
 }
 
@@ -299,10 +290,7 @@ function startAmbientBalloons() {
     window.setTimeout(() => spawnFloodBalloon(zones[i % zones.length]), i * 65);
   }
 
-  // Then keep refilling forever: every 0.2s, spawn exactly 3 balloons - one
-  // from the left, one from the middle, one from the right - so the screen
-  // never runs empty. This interval is intentionally never cleared, so the
-  // flood keeps going for as long as the page stays open.
+
   ambientBalloonTimer = window.setInterval(() => {
     zones.forEach((zone) => spawnFloodBalloon(zone));
   }, 200);
@@ -333,6 +321,40 @@ function stopYoutube() {
   }
 }
 
+// ---------- small inline box for "external link" songs ----------
+// Same idea as the little bordered preview box on the create page: instead
+// of reusing the big YouTube-sized frame, external links get their own
+// compact, rounded, fixed-height box so they clearly read as "a small
+// player embedded right here" rather than a full video screen.
+function getExternalSongFrame() {
+  let wrap = document.getElementById("external-song-frame");
+  if (!wrap) {
+    wrap = document.createElement("div");
+    wrap.id = "external-song-frame";
+    wrap.className = "hidden";
+    wrap.style.marginTop = "10px";
+    const iframe = document.createElement("iframe");
+    iframe.id = "external-song-iframe";
+    iframe.style.width = "100%";
+    iframe.style.height = "220px";
+    iframe.style.border = "1px solid var(--hairline)";
+    iframe.style.borderRadius = "12px";
+    wrap.appendChild(iframe);
+    // Insert right after the yt-frame so it lives inside the same player card.
+    ytFrame.insertAdjacentElement("afterend", wrap);
+  }
+  return wrap;
+}
+
+function stopExternalFrame() {
+  const wrap = document.getElementById("external-song-frame");
+  if (wrap) {
+    const iframe = document.getElementById("external-song-iframe");
+    if (iframe) iframe.src = "";
+    wrap.classList.add("hidden");
+  }
+}
+
 function playTrack(i, autoplay = true) {
   const songs = albumData.songs;
   currentTrack = i;
@@ -355,6 +377,7 @@ function playTrack(i, autoplay = true) {
   if (kind === "youtube") {
     // Plays inline via YouTube's own embed player - same screen, any device,
     // no scraping/downloading of YouTube's audio (that would break their ToS).
+    stopExternalFrame();
     audioEl.removeAttribute("src");
     audioEl.classList.add("hidden");
     playBtn.classList.add("hidden");
@@ -363,6 +386,7 @@ function playTrack(i, autoplay = true) {
     document.getElementById("disc").classList.toggle("playing", autoplay);
   } else if (kind === "audio" && isPlayableUrl(song.url)) {
     stopYoutube();
+    stopExternalFrame();
     audioEl.classList.remove("hidden");
     playBtn.classList.remove("hidden");
     audioEl.src = song.url;
@@ -371,13 +395,20 @@ function playTrack(i, autoplay = true) {
     document.getElementById("disc").classList.toggle("playing", autoplay);
   } else {
     // External link (not a direct audio file, not YouTube): play it inline,
-    // in this same screen/window, by reusing the embed frame instead of
-    // sending the visitor to a new tab or a different page.
+    // right here on the album page, in a small bordered box - same as the
+    // preview shown while creating the album - instead of sending the
+    // visitor to a new tab or a different page.
+    stopYoutube();
     audioEl.removeAttribute("src");
     audioEl.classList.add("hidden");
     playBtn.classList.add("hidden");
-    ytFrame.classList.remove("hidden");
-    ytFrame.src = song.url;
+    ytFrame.classList.add("hidden");
+
+    const frameWrap = getExternalSongFrame();
+    const iframe = document.getElementById("external-song-iframe");
+    iframe.src = song.url;
+    frameWrap.classList.remove("hidden");
+
     statusEl.textContent =
       "Playing this link right here. If it stays blank, that source doesn't allow inline embedding.";
     statusEl.classList.remove("hidden");
@@ -396,6 +427,7 @@ function startSong() {
   const song = albumData.songs[currentTrack];
   const kind = song.kind || (isPlayableUrl(song.url) ? "audio" : "external");
   if (kind === "youtube") return; // the iframe's autoplay param handles this
+  if (kind === "external") return; // external embeds handle their own playback
   if (currentTrack === 0 && audioEl.ended) completedCycles = 0;
   if (kind === "audio" && isPlayableUrl(song.url) && audioEl.paused) {
     audioEl

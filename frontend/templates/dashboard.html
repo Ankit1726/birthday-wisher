@@ -32,7 +32,7 @@
 
       <div class="empty-state hidden" id="empty-msg">
         <span class="empty-emoji">🎈</span>
-        No albums yet — create your first one and make someone's day.
+        No albums yet create your first one and make someone's day.
       </div>
 
       <p class="error-msg" id="load-error"></p>
@@ -106,8 +106,6 @@
       let confirmTimer = null;
 
       deleteBtn.onclick = async () => {
-        // Two-step confirm right on the button - no jarring browser popup,
-        // and it auto-resets if the user doesn't confirm within a few seconds.
         if (!deleteBtn.classList.contains("confirming")) {
           deleteBtn.classList.add("confirming");
           deleteBtn.textContent = "Confirm?";
