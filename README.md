@@ -1,13 +1,14 @@
 # 🎂 ***Birthday Wish Album***
-
-
-<p align="center">
-
+<div align="center">
+       
 ### 💖 ***Create. Personalize. Celebrate.***
 
 ***A private animated birthday album built with FastAPI, MongoDB Atlas, HTML, CSS & JavaScript***
 
 ***Photo • Birthday Wish • Music • Locket Animation • Cake • Confetti • Balloons • Shareable Album***
+</div>
+
+<p align="center">
 
 <img src="https://img.shields.io/badge/Python-3.11-blue?style=for-the-badge&logo=python"/>
 <img src="https://img.shields.io/badge/FastAPI-Backend-009688?style=for-the-badge&logo=fastapi"/>
