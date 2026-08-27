@@ -367,6 +367,7 @@ Spotify and YouTube page URLs are intentionally rejected because they are not di
 ✅ Database 👉 MongoDB Atlas Async | MongoDB driver | Document-based storage
 
 ✅ Deployment 👉 Docker |  Render
+
 ---
 
 ### ❤️*** Example User Journey***
