@@ -4,7 +4,6 @@ const slug = params.get("slug");
 
 let albumData = null;
 let currentTrack = -1;
-let completedCycles = 0;
 let ambientBalloonTimer = null;
 let floodBalloonCount = 0;
 const MAX_FLOOD_BALLOONS = 140;
@@ -425,8 +424,6 @@ function playTrack(i, autoplay = true) {
   audioEl.pause();
 
   if (kind === "youtube") {
-    // Plays inline via YouTube's own embed player - same screen, any device,
-    // no scraping/downloading of YouTube's audio (that would break their ToS).
     stopExternalFrame();
     audioEl.removeAttribute("src");
     audioEl.classList.add("hidden");
@@ -444,6 +441,7 @@ function playTrack(i, autoplay = true) {
     playBtn.textContent = autoplay ? "⏸" : "▶";
     document.getElementById("disc").classList.toggle("playing", autoplay);
   } else {
+    
     // External link (not a direct audio file, not YouTube): play it inline,
     // right here on the album page, in a small bordered box - same as the
     // preview shown while creating the album - instead of sending the
@@ -478,7 +476,6 @@ function startSong() {
   const kind = song.kind || (isPlayableUrl(song.url) ? "audio" : "external");
   if (kind === "youtube") return; // the iframe's autoplay param handles this
   if (kind === "external") return; // external embeds handle their own playback
-  if (currentTrack === 0 && audioEl.ended) completedCycles = 0;
   if (kind === "audio" && isPlayableUrl(song.url) && audioEl.paused) {
     audioEl
       .play()
@@ -497,7 +494,6 @@ document.getElementById("play-pause-btn").addEventListener("click", () => {
   if (kind !== "audio" || !isPlayableUrl(song.url)) {
     document.getElementById("song-status").classList.remove("hidden");
   } else if (audioEl.paused) {
-    if (audioEl.ended) completedCycles = 0;
     audioEl.play().catch(() => {});
     document.getElementById("play-pause-btn").textContent = "⏸";
     document.getElementById("disc").classList.add("playing");
@@ -509,24 +505,16 @@ document.getElementById("play-pause-btn").addEventListener("click", () => {
 });
 
 audioEl.addEventListener("ended", () => {
-  if (
-    albumData &&
-    albumData.songs &&
-    currentTrack < albumData.songs.length - 1
-  ) {
-    playTrack(currentTrack + 1);
-  } else if (
-    albumData &&
-    albumData.songs &&
-    albumData.songs.length &&
-    completedCycles < 1
-  ) {
-    completedCycles += 1;
-    playTrack(0, true);
-  } else {
-    document.getElementById("play-pause-btn").textContent = "▶";
-    document.getElementById("disc").classList.remove("playing");
+  if (!albumData || !albumData.songs || !albumData.songs.length) {
+    return;
   }
+
+  const nextTrack =
+    currentTrack < albumData.songs.length - 1
+      ? currentTrack + 1
+      : 0;
+
+  playTrack(nextTrack, true);
 });
 
 init();
