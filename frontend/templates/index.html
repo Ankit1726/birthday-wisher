@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birthday Wisher 🎂</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body id="body-el" data-theme="rose">
+  <div id="hearts-field"></div>
+  <main class="page">
+    <p class="brand-eyebrow">A little celebration🎉 saved forever</p>
+    <h1 class="brand-title">Birthday Wish Album</h1>
+    <p class="brand-sub">Create a private shareable birthday keepsake.</p>
+    <div class="card">
+      <div class="tabs">
+        <button class="tab active" id="tab-login" type="button">Login</button>
+        <button class="tab" id="tab-create" type="button">Register</button>
+      </div>
+
+      <form id="login-form">
+        <div class="field"><label for="login-username">Username</label><input id="login-username" required
+            autocomplete="username"></div>
+        <div class="field"><label for="login-password">Password</label><input type="password" id="login-password"
+            required autocomplete="current-password"></div>
+        <div class="error-msg" id="login-error"></div>
+        <button class="btn btn-primary btn-block" type="submit">Login</button>
+      </form>
+
+      <form id="create-form" class="hidden">
+        <div class="field"><label for="create-name">Display Name</label><input id="create-name" required maxlength="60"
+            autocomplete="name"></div>
+        <div class="field"><label for="create-username">Username</label><input id="create-username" required
+            minlength="3" maxlength="30" autocomplete="username"></div>
+        <div class="field"><label for="create-password">Password</label><input type="password" id="create-password"
+            required minlength="8" maxlength="100" autocomplete="new-password"></div>
+        <div class="error-msg" id="create-error"></div>
+        <button class="btn btn-primary btn-block" type="submit">Create account</button>
+      </form>
+    </div>
+  </main>
+
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/auth.js"></script>
+</body>
+
+</html>

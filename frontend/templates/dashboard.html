@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Albums✨</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body id="body-el" data-theme="rose">
+  <div id="hearts-field"></div>
+  <main class="page">
+    <div class="card card-wide">
+      <div class="row" style="justify-content:space-between; align-items:center;">
+        <h1 style="margin:0;">My Albums</h1>
+        <button class="btn btn-ghost btn-sm" id="logout-btn" type="button">Logout</button>
+      </div>
+      <p class="muted">Every album you've created lives here.</p>
+      <button class="btn btn-primary" id="new-album-btn" type="button" style="margin-bottom:20px;">+ Create New
+        Album 🎂</button>
+      <div id="album-list"></div>
+      <p class="muted" id="empty-msg" style="display:none;">No albums yet create your first one...</p>
+    </div>
+  </main>
+
+  <script src="/static/js/api.js"></script>
+  <script>
+    requireAuth();
+
+    const listEl = document.getElementById("album-list");
+    const emptyEl = document.getElementById("empty-msg");
+
+    document.getElementById("logout-btn").onclick = () => { logout(); };
+    document.getElementById("new-album-btn").onclick = () => { window.location.href = "/create"; };
+
+    async function loadAlbums() {
+      try {
+        const albums = await apiFetch("/api/albums/mine");
+        listEl.innerHTML = "";
+        if (albums.length === 0) { emptyEl.style.display = "block"; return; }
+        for (const a of albums) {
+          const div = document.createElement("div");
+          div.className = "album-item";
+          div.innerHTML = `
+            <div>
+              <strong>${a.recipient_name}</strong><br>
+              <span class="muted">/album?slug=${a.slug}</span>
+            </div>
+            <div>
+              <button data-slug="${a.slug}" class="view-btn">View</button>
+              <button data-slug="${a.slug}" class="edit-btn">Edit</button>
+            </div>`;
+          listEl.appendChild(div);
+        }
+        listEl.querySelectorAll(".view-btn").forEach(b => b.onclick = () => {
+          window.location.href = `/album?slug=${encodeURIComponent(b.dataset.slug)}`;
+        });
+        listEl.querySelectorAll(".edit-btn").forEach(b => b.onclick = () => {
+          window.location.href = `/create?slug=${encodeURIComponent(b.dataset.slug)}`;
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    loadAlbums();
+  </script>
+</body>
+
+</html>

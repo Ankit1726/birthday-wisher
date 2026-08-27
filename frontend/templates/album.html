@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Wish 🎂</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body id="body-el" data-theme="rose">
+    <div id="hearts-field"></div><canvas id="confetti-canvas"></canvas>
+    <div class="top-actions" id="owner-actions" style="display:none"><a class="btn btn-ghost btn-sm"
+            id="edit-link">Edit</a></div>
+    <main class="album-stage">
+        <div id="loading" class="muted">Loading your birthday wish..🍾</div>
+        <div id="not-found" class="hidden error-msg">This birthday album could not be found.</div>
+        <div id="content" class="hidden" style="width:100%;display:flex;flex-direction:column;align-items:center">
+            <div class="locket-wrap">
+                <div class="locket" id="locket">
+                    <div class="locket-face"><span style="font-size:5rem">♥</span></div>
+                    <div class="locket-photo" id="locket-photo">
+                        <div class="placeholder">♥</div>
+                    </div>
+                </div>
+            </div>
+            <p class="tap-hint">Tap the heart to open 🥳</p>
+            <h1 class="recipient-name" id="recipient-name"></h1>
+            <p class="recipient-sub">A birthday wish made especially for you ✨</p>
+            <div class="wish-card" id="wish-card">
+                <p id="wish-message"></p>
+            </div>
+            <section class="calendar-panel" aria-label="Birthday month calendar">
+                <div class="calendar-heading"><span id="calendar-month"></span><span class="calendar-spark">✦</span>
+                </div>
+                <p class="calendar-note" id="calendar-note"></p>
+                <div class="calendar-grid" id="calendar-grid"></div>
+            </section>
+            <div class="cake-wrap" id="cake-wrap">
+                <div class="cake-svg" style="font-size:7rem;text-align:center">🎂</div>
+                <div class="flame-group flame">🔥</div>
+                <p class="cake-hint" id="cake-hint">Tap the candle to blow it out 🥳</p>
+            </div>
+            <div class="player hidden" id="player">
+                <div class="player-title">A song for you</div>
+                <div class="player-track">
+                    <div class="disc" id="disc"></div>
+                    <div class="meta">
+                        <div class="t" id="track-title"></div>
+                        <div class="a" id="track-artist"></div>
+                    </div><button class="btn btn-ghost btn-sm" id="play-pause-btn" type="button">▶</button>
+                </div>
+                <div class="player-list" id="player-list"></div><audio id="audio-el" controls preload="metadata"></audio><p id="song-status" class="muted hidden"></p>
+            </div>
+            <footer class="album-footer" id="creator-credit"></footer>
+        </div>
+    </main>
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/hearts.js"></script>
+    <script src="/static/js/confetti.js"></script>
+    <script src="/static/js/album.js"></script>
+</body>
+
+</html>

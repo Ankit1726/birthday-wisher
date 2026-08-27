@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Birthday Album 🥳</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body id="body-el" data-theme="rose">
+    <div id="hearts-field"></div>
+    <main class="page">
+        <div class="card card-wide">
+            <p class="brand-eyebrow">Make it personal ❤️</p>
+            <h1 class="brand-title">Birthday Album</h1>
+            <div class="field"><label for="recipient-name">Their name</label><input id="recipient-name" required
+                    maxlength="60"></div>
+            <div class="field"><label for="birthday">Birthday Date</label><input type="date" id="birthday" required>
+            </div>
+            <div class="field"><label for="wish-message">Wish message</label><textarea id="wish-message" rows="5"
+                    maxlength="2000"></textarea></div>
+            <div class="field"><label>Theme</label>
+                <div class="swatches" id="theme-picker">
+                    <button class="swatch selected" type="button" data-t="rose" aria-label="Rose theme"></button><button
+                        class="swatch" type="button" data-t="blush" aria-label="Blush theme"></button><button
+                        class="swatch" type="button" data-t="magenta" aria-label="Magenta theme"></button><button
+                        class="swatch" type="button" data-t="lavender" aria-label="Lavender theme"></button>
+                </div>
+            </div>
+            <div class="field"><label>Animations</label>
+                <div class="chip-group" id="anim-picker">
+                    <button class="chip selected" type="button" data-a="cake">Cake</button><button class="chip selected"
+                        type="button" data-a="confetti">Confetti</button><button class="chip" type="button"
+                        data-a="hearts">Hearts</button><button class="chip" type="button"
+                        data-a="sparkles">Sparkles</button><button class="chip" type="button"
+                        data-a="balloons">Balloons</button>
+                </div>
+            </div>
+            <div class="field"><label for="photo-input">Photo</label>
+                <div class="dropzone" id="dropzone"><span id="dropzone-empty">Choose a photo</span>
+                    <div class="crop-frame"><img id="photo-preview" class="hidden" alt="Photo preview"></div>
+                </div><input type="file" id="photo-input" accept="image/*" hidden>
+            </div>
+            <div class="field"><label>Add a song</label><input id="song-title" placeholder="Song title"><input
+                    id="song-singer" placeholder="Singer name" style="margin-top:8px"><input id="song-url"
+                    placeholder="Spotify, YouTube, or MP3 URL" style="margin-top:8px">
+                <div class="row" style="margin-top:8px"><button class="btn btn-ghost" id="add-song-link-btn"
+                        type="button">Fetch &amp; add audio</button><button class="btn btn-ghost" id="upload-song-btn"
+                        type="button">Upload audio</button></div><input type="file" id="song-file-input"
+                    accept="audio/*" hidden>
+                <div id="song-list" style="margin-top:12px"></div>
+            </div>
+            <div class="error-msg" id="save-error"></div>
+            <div class="success-msg" id="save-success"></div><button class="btn btn-primary btn-block" id="save-btn"
+                type="button">Save &amp; Get Shareable Link</button>
+            <button class="btn btn-ghost btn-block" id="preview-btn" type="button" disabled>Preview after
+                saving</button>
+            <div class="link-row hidden" id="link-row"><input id="share-link" readonly><button
+                    class="btn btn-ghost btn-sm" id="copy-link-btn" type="button">Copy</button><a
+                    class="btn btn-ghost btn-sm" id="view-link-btn">View</a></div>
+        </div>
+    </main>
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/create.js"></script>
+</body>
+
+</html>
