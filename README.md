@@ -1,10 +1,12 @@
-# 🎂 ***Birthday Wish Album***
-
+#  ***Birthday Wish Album 🎂***
+<div align="center">
+       
 ### 💖 ***Create. Personalize. Celebrate.***
 
 ***A private animated birthday album built with FastAPI, MongoDB Atlas, HTML, CSS & JavaScript***
 
-**Photo • Birthday Wish • Music • Locket Animation • Cake • Confetti • Balloons • Shareable Album**
+***Photo • Birthday Wish • Music • Locket Animation • Cake • Confetti • Balloons • Shareable Album***
+</div>
 
 <p align="center">
 
