@@ -77,7 +77,7 @@ Interactive Birthday Experience ❤️
 
 ---
 
-# 🚀 Live Demo
+###  ***Live Demo 🌐***
 
 <p align="center">
 
@@ -95,7 +95,7 @@ Interactive Birthday Experience ❤️
 
 ### 📸 Project Showcase
 
-## 🏠 Login & Authentication
+### ***🏠 Login & Authentication***
 
 The first screen allows the creator to securely register and log in before accessing their birthday albums.
 
@@ -121,7 +121,7 @@ The creator can customize every important part of the birthday experience.
 
 ---
 
-## 🔐 Secure Private Album Creation
+### ***🔐 Secure Private Album Creation***
 
 Each creator has their own authenticated account.
 
@@ -137,7 +137,7 @@ The final album can then be shared using a public album URL.
 
 ---
 
-## ✨ Key Features
+### ***✨ Key Features***
 
 ### ***🔐 Authentication***
 
@@ -361,8 +361,11 @@ Spotify and YouTube page URLs are intentionally rejected because they are not di
 ### ***🛠️ Tech Stack***
 
 ✅ Frontend 👉 HTML | CSS | Fetch API | Animations.
+
 ✅ Backend 👉 Python 3.11 | FastAPI | Pydantic | JWT Auth.
+
 ✅ Database 👉 MongoDB Atlas Async | MongoDB driver | Document-based storage
+
 ✅ Deployment 👉 Docker |  Render
 ---
 
