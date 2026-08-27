@@ -175,7 +175,7 @@ This makes every album unique.
 
 ---
 
-## 💖 Animated Heart Locket
+### ***💖 Animated Heart Locket***
 
 The signature interaction of the project is a heart-shaped locket.
 
@@ -198,7 +198,7 @@ The locket opens when the user interacts with it and reveals the recipient's pho
 
 ---
 
-## 🎉 Celebration Animations
+### ***🎉 Celebration Animations***
 
 The album supports multiple animations:
 
@@ -214,7 +214,7 @@ Animations can be enabled or disabled from the album creation screen.
 
 ---
 
-# 🎨 Theme Variants
+### ***🎨 Theme Variants***
 
 Each album can have its own visual theme.
 
@@ -310,7 +310,7 @@ Spotify and YouTube page URLs are intentionally rejected because they are not di
 
 ---
 
-# 🏗️ Project Flow
+### ***🏗️ Project Flow***
 
 ```text
                     ┌───────────────┐
@@ -358,47 +358,15 @@ Spotify and YouTube page URLs are intentionally rejected because they are not di
 
 ---
 
-# 🛠️ Tech Stack
+### ***🛠️ Tech Stack***
 
-### Frontend
-
-* HTML5
-* CSS3
-* Vanilla JavaScript
-* CSS Keyframe Animations
-* HTML Canvas
-* Fetch API
-
-### Backend
-
-* Python 3.11
-* FastAPI
-* Pydantic
-* JWT Authentication
-* Async API architecture
-
-### Database
-
-* MongoDB Atlas
-* Async MongoDB driver
-* Document-based storage
-
-### Deployment
-
-* Docker
-* Docker Compose
-* Render
+✅ Frontend 👉 HTML | CSS | Fetch API | Animations.
+✅ Backend 👉 Python 3.11 | FastAPI | Pydantic | JWT Auth.
+✅ Database 👉 MongoDB Atlas Async | MongoDB driver | Document-based storage
+✅ Deployment 👉 Docker |  Render
 ---
 
-
-
-
-
-
-
-
-
-# ❤️ Example User Journey
+### ❤️*** Example User Journey***
 
 ```text
 👤 Creator
