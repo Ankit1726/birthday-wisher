@@ -1,29 +1,8 @@
-Absolutely. Below is a polished **GitHub `README.md`** for your **Birthday Wish Album** project, following the same visual style as your EmotiSense README, but making it more professional and portfolio-friendly.
+# 🎂 ***Birthday Wish Album***
 
-I’ve included:
+### 💖 ***Create. Personalize. Celebrate.***
 
-* 🚀 Live Demo section
-* 📸 Multiple screenshot/image sections
-* ✨ Project overview
-* 🏗️ Architecture
-* 🛠️ Tech stack
-* 🔐 Authentication/security
-* 🗄️ MongoDB Atlas
-* 🎨 Theme and animation details
-* 🎵 Song/audio functionality
-* 🐳 Docker + Render deployment
-* 📁 Project structure
-* ⚙️ Local setup
-* 🔮 Future enhancements
-* 👨‍💻 Developer section
-
-<div align="center">
-
-# 🎂 **Birthday Wish Album**
-
-### 💖 **Create. Personalize. Celebrate.**
-
-**A private animated birthday album built with FastAPI, MongoDB Atlas, HTML, CSS & JavaScript**
+***A private animated birthday album built with FastAPI, MongoDB Atlas, HTML, CSS & JavaScript***
 
 **Photo • Birthday Wish • Music • Locket Animation • Cake • Confetti • Balloons • Shareable Album**
 
@@ -40,7 +19,7 @@ I’ve included:
 
 <p align="center">
 
-<a href="https://YOUR-APP.onrender.com" target="_blank">
+<a href="https://birthday-wisher-eokf.onrender.com" target="_blank">
 <img src="https://img.shields.io/badge/🚀%20Live%20Demo-Visit%20Now-success?style=for-the-badge">
 </a>
 
@@ -48,7 +27,7 @@ I’ve included:
 
 <p align="center">
 
-**Made with ❤️ by Ankit Gupta**
+***Made with ❤️ by Ankit Gupta***
 
 </p>
 
@@ -56,7 +35,7 @@ I’ve included:
 
 ---
 
-# 🎂 About The Project
+### ***🎂 About The Project***
 
 **Birthday Wish Album** is a private and personalized web application designed to create beautiful digital birthday experiences for someone special.
 
@@ -100,7 +79,7 @@ Interactive Birthday Experience ❤️
 
 <p align="center">
 
-<a href="https://YOUR-APP.onrender.com" target="_blank">
+<a href="https://birthday-wisher-eokf.onrender.com" target="_blank">
 
 <img src="https://img.shields.io/badge/🚀%20OPEN%20LIVE%20APPLICATION-success?style=for-the-badge&logo=render"/>
 
@@ -108,14 +87,11 @@ Interactive Birthday Experience ❤️
 
 </p>
 
-🌐 **Live Application:**
-[https://YOUR-APP.onrender.com](https://YOUR-APP.onrender.com)
-
-> Replace `https://YOUR-APP.onrender.com` with your actual Render URL.
+🌐 ***Live Application👉 [Birthday Wisher](https://birthday-wisher-eokf.onrender.com)***
 
 ---
 
-# 📸 Project Showcase
+### 📸 Project Showcase
 
 ## 🏠 Login & Authentication
 
@@ -123,21 +99,12 @@ The first screen allows the creator to securely register and log in before acces
 
 <p align="center">
 <img src="./preview/login.png" width="90%" alt="Login Page"/>
+<img src="./preview/register.png" width="90%" alt="Login Page"/>
 </p>
 
 ---
 
-## 📊 Personal Dashboard
-
-After login, the creator can view existing birthday albums and create a new album.
-
-<p align="center">
-<img src="./preview/dashboard.png" width="90%" alt="Dashboard"/>
-</p>
-
----
-
-## 🎨 Create Birthday Album
+### ***🎨 Create Birthday Album***
 
 The creator can customize every important part of the birthday experience.
 
@@ -149,19 +116,6 @@ The creator can customize every important part of the birthday experience.
 * Theme
 * Animation preferences
 
-<p align="center">
-<img src="./preview/create-album.png" width="90%" alt="Create Album Page"/>
-</p>
-
----
-
-## 💖 Interactive Birthday Album
-
-The public album provides the main birthday experience with animations and interactive elements.
-
-<p align="center">
-<img src="./preview/album.png" width="90%" alt="Birthday Album"/>
-</p>
 
 ---
 
@@ -181,9 +135,9 @@ The final album can then be shared using a public album URL.
 
 ---
 
-# ✨ Key Features
+## ✨ Key Features
 
-## 🔐 Authentication
+### ***🔐 Authentication***
 
 * User registration
 * User login
@@ -195,7 +149,7 @@ The final album can then be shared using a public album URL.
 
 ---
 
-## 🎂 Personalized Birthday Album
+### ***🎂 Personalized Birthday Album***
 
 Each album can contain:
 
@@ -432,311 +386,15 @@ Spotify and YouTube page URLs are intentionally rejected because they are not di
 * Docker
 * Docker Compose
 * Render
-
 ---
 
-# 📁 Project Structure
 
-```text
-birthday-album/
-│
-├── Dockerfile
-├── docker-compose.yml
-├── requirements.txt
-├── .dockerignore
-├── .gitignore
-├── README.md
-│
-├── app.py
-│
-├── backend/
-│   │
-│   ├── config.py
-│   │
-│   ├── database/
-│   │   ├── connection.py
-│   │   └── models.py
-│   │
-│   ├── auth/
-│   │   ├── jwt.py
-│   │   ├── password.py
-│   │   └── dependencies.py
-│   │
-│   ├── routes/
-│   │   ├── auth.py
-│   │   ├── album.py
-│   │   └── health.py
-│   │
-│   └── keepalive.py
-│
-└── frontend/
-    │
-    ├── index.html
-    ├── dashboard.html
-    ├── create.html
-    ├── album.html
-    │
-    ├── css/
-    │   └── style.css
-    │
-    └── js/
-        ├── api.js
-        ├── auth.js
-        ├── create.js
-        ├── album.js
-        ├── hearts.js
-        └── confetti.js
-```
 
----
 
-# 🗄️ MongoDB Data Model
 
-The application uses MongoDB Atlas to store application data.
 
-### Users
 
-```text
-users
-│
-├── _id
-├── username
-├── password_hash
-└── created_at
-```
 
-### Albums
-
-```text
-albums
-│
-├── _id
-├── owner_id
-├── slug
-├── recipient_name
-├── birthday_date
-├── wish_message
-├── theme
-├── animations
-├── photo
-├── songs
-└── created_at
-```
-
-### Media
-
-Uploaded photos and songs can be stored as MongoDB documents and served through the backend.
-
-```text
-Browser
-   ↓
-FastAPI
-   ↓
-MongoDB
-   ↓
-Media Document
-   ↓
-/api/media/{media_id}
-   ↓
-Browser
-```
-
----
-
-# 🔐 Security
-
-Security was considered during the application design.
-
-### Authentication
-
-```text
-Username + Password
-        ↓
-Password Verification
-        ↓
-JWT Token
-        ↓
-Authenticated API Requests
-```
-
-### Authorization
-
-Album modification APIs verify:
-
-```text
-Current User
-     ↓
-Album Owner?
-     ↓
-YES → Allow
-NO  → Reject
-```
-
-Only the album owner can edit or delete their albums.
-
----
-
-# ⚙️ Environment Variables
-
-Create a `.env` file locally:
-
-```env
-MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/
-MONGO_DB_NAME=birthday_album
-
-JWT_SECRET=your-long-random-secret
-
-ALLOWED_ORIGINS=http://localhost:8000
-
-SELF_URL=
-KEEPALIVE_ENABLED=false
-```
-
-> Never commit `.env` to GitHub.
-
----
-
-# 🚀 Local Installation
-
-## 1. Clone Repository
-
-```bash
-git clone https://github.com/YOUR_USERNAME/birthday-album.git
-
-cd birthday-album
-```
-
----
-
-## 2. Create Virtual Environment
-
-```bash
-python -m venv venv
-```
-
-### Windows
-
-```bash
-venv\Scripts\activate
-```
-
-### Linux / macOS
-
-```bash
-source venv/bin/activate
-```
-
----
-
-## 3. Install Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
-## 4. Configure Environment
-
-Create:
-
-```text
-.env
-```
-
-and add your MongoDB Atlas and JWT credentials.
-
----
-
-## 5. Run Application
-
-```bash
-uvicorn app:app --reload --port 8000
-```
-
-Open:
-
-```text
-http://localhost:8000
-```
-
----
-
-# 🐳 Docker Deployment
-
-Build the Docker image:
-
-```bash
-docker build -t birthday-album .
-```
-
-Run:
-
-```bash
-docker run -p 8000:8000 --env-file .env birthday-album
-```
-
-Or use Docker Compose:
-
-```bash
-docker-compose up --build
-```
-
-Health check:
-
-```text
-GET /health
-```
-
----
-
-# ☁️ Deploy to Render
-
-The application is designed to run as a single Dockerized service on Render.
-
-### Deployment Flow
-
-```text
-GitHub Repository
-        ↓
-      Render
-        ↓
-   Docker Build
-        ↓
-   Start Container
-        ↓
-     FastAPI
-        ↓
- MongoDB Atlas
-        ↓
-   Live Website
-```
-
-### Required Environment Variables
-
-Add these values in Render:
-
-```text
-MONGO_URI
-MONGO_DB_NAME
-JWT_SECRET
-```
-
-Optional:
-
-```text
-ALLOWED_ORIGINS
-SELF_URL
-KEEPALIVE_ENABLED
-```
-
-After the first deployment, set:
-
-```text
-SELF_URL=https://YOUR-APP.onrender.com
-```
-
----
 
 # ❤️ Example User Journey
 
@@ -780,121 +438,16 @@ SELF_URL=https://YOUR-APP.onrender.com
 
 ---
 
-# 🌟 Why I Built This
+### ***🌟 Why I Built This***
 
 This project combines **web development, backend engineering, database management, authentication, media handling, animations and cloud deployment** into one complete application.
 
 The goal was not simply to create another CRUD application.
 
 The goal was to build something that feels **personal, interactive and memorable** while still demonstrating practical software engineering skills.
-
 ---
 
-# 🎯 Key Learning Outcomes
-
-Through this project, I worked with:
-
-* FastAPI REST API development
-* JWT authentication
-* Password security
-* MongoDB Atlas
-* Async database operations
-* File/media handling
-* REST API design
-* Frontend-backend integration
-* Dynamic JavaScript UI
-* CSS animations
-* Canvas-based confetti
-* Docker containerization
-* Cloud deployment
-* Environment-based configuration
-* Public/private resource handling
-
----
-
-# 🔮 Future Enhancements
-
-Planned improvements include:
-
-* 📧 Birthday reminder notifications
-* 📱 Better mobile-first experience
-* 🎁 Gift message section
-* 🖼️ Multiple photo gallery
-* 🎵 Multiple playlist support
-* 💌 Animated letter/envelope
-* 🔗 QR code for album sharing
-* 📊 Album analytics
-* 🌍 Custom domain support
-* 🔒 Password-protected public albums
-* ☁️ Cloud object storage for large media
-* 🎨 More customizable themes
-* 🌈 Custom color picker
-* ✨ More interactive animations
-
----
-
-# 🧪 API Endpoints
-
-### Authentication
-
-```text
-POST /api/auth/register
-POST /api/auth/login
-```
-
-### Albums
-
-```text
-GET    /api/albums
-POST   /api/albums
-GET    /api/albums/{id}
-PATCH  /api/albums/{id}
-DELETE /api/albums/{id}
-```
-
-### Public Album
-
-```text
-GET /api/albums/public/{slug}
-```
-
-### Media
-
-```text
-POST /api/media/photo
-POST /api/media/song
-GET  /api/media/{media_id}
-```
-
-### Health
-
-```text
-GET /health
-```
-
----
-
-# 📸 Complete Project Preview
-
-<p align="center">
-
-<img src="./preview/login.png" width="45%" alt="Login"/>
-<img src="./preview/dashboard.png" width="45%" alt="Dashboard"/>
-
-</p>
-
-<p align="center">
-
-<img src="./preview/create-album.png" width="45%" alt="Create Album"/>
-<img src="./preview/album.png" width="45%" alt="Birthday Album"/>
-
-</p>
-
-> Replace the image filenames above with your actual screenshots.
-
----
-
-# ⭐ Support
+### ***⭐ Support***
 
 If you like this project or find it useful for learning:
 
@@ -907,7 +460,7 @@ If you like this project or find it useful for learning:
 
 <div align="center">
 
-# 🎂 **Birthday Wish Album**
+### 🎂 **Birthday Wish Album**
 
 ### **A little code. A little creativity. A lot of love. ❤️**
 
@@ -915,7 +468,7 @@ If you like this project or find it useful for learning:
 
 <br>
 
-### 👨‍💻 **ANKIT GUPTA**
+### 👨‍💻 ***ANKIT GUPTA***
 
 **AI Engineer • Python Developer • AIML Enthusiast**
 
