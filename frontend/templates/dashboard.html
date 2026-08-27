@@ -12,15 +12,30 @@
   <div id="hearts-field"></div>
   <main class="page">
     <div class="card card-wide">
-      <div class="row" style="justify-content:space-between; align-items:center;">
-        <h1 style="margin:0;">My Albums</h1>
+      <div class="dashboard-toolbar">
+        <h1>My Albums</h1>
         <button class="btn btn-ghost btn-sm" id="logout-btn" type="button">Logout</button>
       </div>
       <p class="muted">Every album you've created lives here.</p>
-      <button class="btn btn-primary" id="new-album-btn" type="button" style="margin-bottom:20px;">+ Create New
-        Album 🎂</button>
-      <div id="album-list"></div>
-      <p class="muted" id="empty-msg" style="display:none;">No albums yet create your first one...</p>
+      <button class="btn btn-primary" id="new-album-btn" type="button" style="margin-bottom:4px;">
+        + Create New Album 🎂
+      </button>
+
+      <!-- loading skeleton, shown while the first fetch is in flight -->
+      <div class="album-grid" id="skeleton-grid">
+        <div class="album-skeleton"></div>
+        <div class="album-skeleton"></div>
+        <div class="album-skeleton"></div>
+      </div>
+
+      <div class="album-grid hidden" id="album-list"></div>
+
+      <div class="empty-state hidden" id="empty-msg">
+        <span class="empty-emoji">🎈</span>
+        No albums yet — create your first one and make someone's day.
+      </div>
+
+      <p class="error-msg" id="load-error"></p>
     </div>
   </main>
 
@@ -28,39 +43,120 @@
   <script>
     requireAuth();
 
+    const THEME_COLORS = {
+      rose: "#ff4d6d",
+      blush: "#ff8fab",
+      magenta: "#e0218a",
+      lavender: "#c084fc",
+    };
+
     const listEl = document.getElementById("album-list");
+    const skeletonEl = document.getElementById("skeleton-grid");
     const emptyEl = document.getElementById("empty-msg");
+    const errorEl = document.getElementById("load-error");
 
     document.getElementById("logout-btn").onclick = () => { logout(); };
     document.getElementById("new-album-btn").onclick = () => { window.location.href = "/create"; };
 
+    function escapeHtml(s) {
+      return (s || "").replace(
+        /[&<>"']/g,
+        (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c],
+      );
+    }
+
+    function albumCardHtml(a) {
+      const shareUrl = `${window.location.origin}/album?slug=${encodeURIComponent(a.slug)}`;
+      const thumb = a.photo_id
+        ? `<img src="/api/media/${a.photo_id}" alt="${escapeHtml(a.recipient_name)}">`
+        : `<span class="placeholder-emoji">🎂</span>`;
+      const dotColor = THEME_COLORS[a.theme] || THEME_COLORS.rose;
+      const songCount = a.songs ? a.songs.length : 0;
+
+      return `
+        <div class="album-card" data-slug="${escapeHtml(a.slug)}">
+          <div class="album-card-thumb" style="background:${dotColor}22;">
+            ${thumb}
+            <span class="album-card-theme-dot" style="background:${dotColor};"></span>
+          </div>
+          <div class="album-card-body">
+            <p class="album-card-title">${escapeHtml(a.recipient_name)}</p>
+            <span class="album-card-link">${shareUrl.replace(/^https?:\/\//, "")}</span>
+            <span class="album-card-meta">${songCount ? `🎵 ${songCount} song${songCount > 1 ? "s" : ""}` : "No songs added"}</span>
+            <div class="album-card-actions">
+              <button class="btn btn-ghost view-btn" data-slug="${escapeHtml(a.slug)}" type="button">View</button>
+              <button class="btn btn-ghost edit-btn" data-slug="${escapeHtml(a.slug)}" type="button">Edit</button>
+              <button class="btn btn-danger delete-btn" data-slug="${escapeHtml(a.slug)}" type="button">Delete</button>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    function wireCard(cardEl) {
+      const slug = cardEl.dataset.slug;
+
+      cardEl.querySelector(".view-btn").onclick = () => {
+        window.location.href = `/album?slug=${encodeURIComponent(slug)}`;
+      };
+      cardEl.querySelector(".edit-btn").onclick = () => {
+        window.location.href = `/create?slug=${encodeURIComponent(slug)}`;
+      };
+
+      const deleteBtn = cardEl.querySelector(".delete-btn");
+      let confirmTimer = null;
+
+      deleteBtn.onclick = async () => {
+        // Two-step confirm right on the button - no jarring browser popup,
+        // and it auto-resets if the user doesn't confirm within a few seconds.
+        if (!deleteBtn.classList.contains("confirming")) {
+          deleteBtn.classList.add("confirming");
+          deleteBtn.textContent = "Confirm?";
+          confirmTimer = setTimeout(() => {
+            deleteBtn.classList.remove("confirming");
+            deleteBtn.textContent = "Delete";
+          }, 3000);
+          return;
+        }
+
+        clearTimeout(confirmTimer);
+        deleteBtn.disabled = true;
+        deleteBtn.textContent = "Deleting...";
+        try {
+          await apiFetch("/api/albums/" + encodeURIComponent(slug), { method: "DELETE" });
+          cardEl.classList.add("removing");
+          setTimeout(() => {
+            cardEl.remove();
+            if (!listEl.querySelector(".album-card")) {
+              listEl.classList.add("hidden");
+              emptyEl.classList.remove("hidden");
+            }
+          }, 220);
+        } catch (err) {
+          deleteBtn.disabled = false;
+          deleteBtn.classList.remove("confirming");
+          deleteBtn.textContent = "Delete";
+          errorEl.textContent = "Couldn't delete that album: " + err.message;
+        }
+      };
+    }
+
     async function loadAlbums() {
+      errorEl.textContent = "";
       try {
         const albums = await apiFetch("/api/albums/mine");
-        listEl.innerHTML = "";
-        if (albums.length === 0) { emptyEl.style.display = "block"; return; }
-        for (const a of albums) {
-          const div = document.createElement("div");
-          div.className = "album-item";
-          div.innerHTML = `
-            <div>
-              <strong>${a.recipient_name}</strong><br>
-              <span class="muted">/album?slug=${a.slug}</span>
-            </div>
-            <div>
-              <button data-slug="${a.slug}" class="view-btn">View</button>
-              <button data-slug="${a.slug}" class="edit-btn">Edit</button>
-            </div>`;
-          listEl.appendChild(div);
+        skeletonEl.classList.add("hidden");
+
+        if (!albums.length) {
+          emptyEl.classList.remove("hidden");
+          return;
         }
-        listEl.querySelectorAll(".view-btn").forEach(b => b.onclick = () => {
-          window.location.href = `/album?slug=${encodeURIComponent(b.dataset.slug)}`;
-        });
-        listEl.querySelectorAll(".edit-btn").forEach(b => b.onclick = () => {
-          window.location.href = `/create?slug=${encodeURIComponent(b.dataset.slug)}`;
-        });
+
+        listEl.innerHTML = albums.map(albumCardHtml).join("");
+        listEl.classList.remove("hidden");
+        listEl.querySelectorAll(".album-card").forEach(wireCard);
       } catch (e) {
-        console.error(e);
+        skeletonEl.classList.add("hidden");
+        errorEl.textContent = "Couldn't load your albums: " + e.message;
       }
     }
     loadAlbums();
