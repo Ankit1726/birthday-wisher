@@ -235,7 +235,7 @@ Example:
 
 ---
 
-# 🎵 Music & Songs
+### 🎵 Music & Songs
 
 The album supports personalized birthday music.
 
@@ -274,7 +274,7 @@ Spotify and YouTube page URLs are intentionally rejected because they are not di
 
 ---
 
-# 🧠 Application Architecture
+### 🧠 Application Architecture
 
 ```text
                        ┌──────────────────────┐
@@ -370,7 +370,7 @@ Spotify and YouTube page URLs are intentionally rejected because they are not di
 
 ---
 
-### ❤️*** Example User Journey***
+### ***❤️ Example User Journey***
 
 ```text
 👤 Creator
